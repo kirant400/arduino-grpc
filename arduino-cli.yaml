@@ -3,9 +3,9 @@ board_manager:
 daemon:
   port: "50051"
 directories:
-  data: /home/appuser/.arduino15
-  downloads: /home/appuser/.arduino15/staging
-  user: /home/appuser/Arduino
+  data: /var/data
+  downloads: /var/data/staging
+  user: /var/data/Arduino
 logging:
   file: ""
   format: text

@@ -1,7 +1,7 @@
 FROM alpine:3.7
 
 # Install latest arduino-cli
-RUN adduser node root
+RUN adduser -S node -G root
 COPY . /home/node/app
 WORKDIR /home/node/app
 RUN apk add curl \

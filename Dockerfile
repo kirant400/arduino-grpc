@@ -9,5 +9,4 @@ EXPOSE 50051
 EXPOSE 9090
 # Tell docker that all future commands should run as the appuser user
 USER appuser
-CMD ["echo","Started"]
 ENTRYPOINT ["arduino-cli","daemon"]

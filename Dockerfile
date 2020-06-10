@@ -25,5 +25,5 @@ EXPOSE 9090
 RUN echo 'we are running some # of cool things'
 USER swuser
 #VOLUME ${homedir}/data
-CMD ["./arduino-cli","daemon","--config-file","${homedir}/app/arduino-cli.yaml"]
-
+#CMD ["./arduino-cli","daemon","--config-file","${homedir}/app/arduino-cli.yaml"]
+ENTRYPOINT ["/bin/sh"]

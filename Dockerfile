@@ -25,5 +25,9 @@ EXPOSE 9090
 RUN echo 'we are running some # of cool things'
 USER swuser
 #VOLUME ${homedir}/data
-ENTRYPOINT ["./arduino-cli","daemon","--config-file","${homedir}/app/arduino-cli.yaml"]
-#ENTRYPOINT ["/bin/sh"]
+#ENTRYPOINT ["./arduino-cli","daemon","--config-file","${homedir}/app/arduino-cli.yaml"]
+#ENTRYPOINT ["/bin/sh" ,"cd"]
+#CMD [ "/bin/echo","hello world" ]
+#ENTRYPOINT "/bin/echo hello world && tail -f /dev/null"
+CMD ./arduino-cli daemon --config-file ${homedir}/app/arduino-cli.yaml && tail -f /dev/null
+#ENTRYPOINT ["tail", "-f", "/dev/null"]

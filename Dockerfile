@@ -15,19 +15,19 @@ WORKDIR ${homedir}/app
 RUN apk add curl \
     && curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=${homedir}/app sh
 COPY arduino-cli.yaml ${homedir}/app
-#RUN chmod -R 755 /home/node/app
+COPY run-daemon.sh ${homedir}/app
+RUN chmod -R 755 ${homedir}/app/run-daemon.sh
 RUN chown -R swuser:swuser ${homedir}/app
 
 #RUN chown -R swuser:swuser /var/data
 EXPOSE 50051
 EXPOSE 9090
 # Tell docker that all future commands should run as the appuser user
-RUN echo 'we are running some # of cool things'
+RUN echo 'Running as new user'
 USER swuser
-#VOLUME ${homedir}/data
-#ENTRYPOINT ["./arduino-cli","daemon","--config-file","${homedir}/app/arduino-cli.yaml"]
-#ENTRYPOINT ["/bin/sh" ,"cd"]
-#CMD [ "/bin/echo","hello world" ]
-#ENTRYPOINT "/bin/echo hello world && tail -f /dev/null"
-CMD ./arduino-cli daemon --config-file ${homedir}/app/arduino-cli.yaml && tail -f /dev/null
-#ENTRYPOINT ["tail", "-f", "/dev/null"]
+
+ENTRYPOINT ["./run-daemon.sh"]
+HEALTHCHECK --interval=10s --timeout=2s --retries=12 \
+  CMD curl --silent --fail localhost:9090/metrics || exit 1
+
+
